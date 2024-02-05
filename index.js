@@ -1,1 +1,50 @@
-const _0x29c122=_0x30ac;(function(_0x3c8b3a,_0x425ff7){const _0x42e325=_0x30ac,_0x5c5011=_0x3c8b3a();while(!![]){try{const _0x41ff85=parseInt(_0x42e325(0xfd))/0x1+parseInt(_0x42e325(0x105))/0x2*(-parseInt(_0x42e325(0x102))/0x3)+-parseInt(_0x42e325(0x10f))/0x4*(-parseInt(_0x42e325(0xf5))/0x5)+-parseInt(_0x42e325(0x10d))/0x6*(-parseInt(_0x42e325(0xf6))/0x7)+parseInt(_0x42e325(0x10b))/0x8+parseInt(_0x42e325(0xfa))/0x9*(parseInt(_0x42e325(0x109))/0xa)+parseInt(_0x42e325(0xf4))/0xb*(-parseInt(_0x42e325(0x103))/0xc);if(_0x41ff85===_0x425ff7)break;else _0x5c5011['push'](_0x5c5011['shift']());}catch(_0x258847){_0x5c5011['push'](_0x5c5011['shift']());}}}(_0x4735,0x8ac1c));import _0x13415b from'puppeteer-extra';function _0x4735(){const _0x3e546a=['waitForSelector','733101FkxuVj','12AmIdKK','./email.txt','4gwrEeS','--disable-setuid-sandbox','click','yellow','620dZoFpD','success\x20add\x20white\x20list','4631248wEHMnA','error','6KhtdqS','pages','104CKJoBc','greenBright','[id=\x22email\x22]','use','16994219BqfDCu','98205ufoddI','4483983qJKTGK','launch','new','Create\x20By\x20Ridwan\x20-\x20HCA','55629bhNMmg','split','entries','488648pEdsnA','=====================================','log','utf-8'];_0x4735=function(){return _0x3e546a;};return _0x4735();}import _0x5e81b6 from'puppeteer-extra-plugin-stealth';import _0x59f40b from'fs';function _0x30ac(_0x4fb7c4,_0x1aa44f){const _0x4735bc=_0x4735();return _0x30ac=function(_0x30acf9,_0x18d827){_0x30acf9=_0x30acf9-0xf1;let _0x429338=_0x4735bc[_0x30acf9];return _0x429338;},_0x30ac(_0x4fb7c4,_0x1aa44f);}import _0x32c8db from'readline-sync';import{cekValidasi}from'./gh.js';import _0x565038 from'chalk';_0x13415b[_0x29c122(0xf3)](_0x5e81b6());const dataEmail=_0x59f40b['readFileSync'](_0x29c122(0x104),_0x29c122(0x100))[_0x29c122(0xfb)]('\x0a'),Main=async(_0x48ed23,_0x716f7d)=>{const _0x12a206=_0x29c122;let _0x12d3de=_0x716f7d+0x1;try{const _0x3a1d87=await _0x13415b[_0x12a206(0xf7)]({'headless':_0x12a206(0xf8),'args':['--no-sandbox',_0x12a206(0x106)]}),_0x41498b=await _0x3a1d87[_0x12a206(0x10e)](),_0x474f1c=_0x41498b[0x0];await _0x474f1c['goto']('https://www.fuel.domains/');const _0x4a6aa9=_0x12a206(0xf2);await _0x474f1c[_0x12a206(0x101)](_0x4a6aa9);_0x4a6aa9?await _0x474f1c['type'](_0x4a6aa9,_0x48ed23):console[_0x12a206(0xff)](_0x12a206(0x10c));const _0x1349dc='[type=\x22submit\x22]';await _0x474f1c[_0x12a206(0x101)](_0x1349dc),_0x1349dc&&await _0x474f1c[_0x12a206(0x107)](_0x1349dc),console[_0x12a206(0xff)](_0x565038[_0x12a206(0xf1)]('[',_0x12d3de,']',_0x12a206(0x10a)+'\x20'+_0x48ed23)),await _0x3a1d87['close']();}catch(_0x5376cf){}};((async()=>{const _0x1e016f=_0x29c122;console[_0x1e016f(0xff)](_0x565038['yellow'](_0x1e016f(0xfe))),console['log'](_0x565038[_0x1e016f(0xf1)](_0x1e016f(0xf9))),console['log'](_0x565038[_0x1e016f(0x108)](_0x1e016f(0xfe)));for(const [_0x5e629f,_0x424d6a]of dataEmail[_0x1e016f(0xfc)]()){await Main(_0x424d6a,_0x5e629f);}})());
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import fs from 'fs';
+import readlineSync from "readline-sync";
+import { cekValidasi } from './gh.js';
+import chalk from 'chalk';
+
+puppeteer.use(StealthPlugin());
+
+const dataEmail = fs.readFileSync('./email.txt', 'utf-8').split('\n');
+
+const Main = async (emails, nomor) => {
+    let angka = nomor + 1
+    try {
+        const browser = await puppeteer.launch({
+            headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        })
+        const pageEmails = await browser.pages();
+        const page = pageEmails[0];
+        await page.goto('https://www.fuel.domains/')
+
+        const email = '[id="email"]'
+        await page.waitForSelector(email)
+        if (email) {
+            await page.type(email, emails)
+        } else {
+            console.log('error')
+        }
+        const submit = '[type="submit"]'
+        await page.waitForSelector(submit)
+        if (submit) {
+            await page.click(submit)
+        }
+        console.log(chalk.greenBright("[", angka, "]", 'success add white list' + " " + emails))
+        await browser.close()
+    } catch (error) {
+
+    }
+}
+
+(async () => {
+    console.log(chalk.yellow('====================================='))
+    console.log(chalk.greenBright('Create By Ridwan - HCA'))
+    console.log(chalk.greenBright('Github : https://github.com/mhrdwan'))
+    console.log(chalk.yellow('====================================='))
+
+    for (const [index, email] of dataEmail.entries()) {
+        await Main(email, index);
+    }
+})();
